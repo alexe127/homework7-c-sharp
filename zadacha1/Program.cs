@@ -1,5 +1,5 @@
-﻿// Написать программу, которая в двумерном массиве заменяет строки на столбцы или сообщить, 
-// что это невозможно (в случае, если заменяет строки на столбцы.
+﻿//Написать программу, которая в двумерном массиве заменяет строки на столбцы или сообщить, 
+//что это невозможно (в случае, если матрица не квадратная).
 void fillArray(int[,] arr, int start, int end)
 {
     Random rnd = new Random();
@@ -9,7 +9,6 @@ void fillArray(int[,] arr, int start, int end)
             arr[i, j] = rnd.Next(start, end + 1);
     }
 }
-
 void printArray(int[,] arr)
 {
     for (int i = 0; i < arr.GetLength(0); i++)
@@ -18,39 +17,34 @@ void printArray(int[,] arr)
             Console.Write(arr[i, j] + " ");
         Console.WriteLine();
     }
-    
 }
-
-void replaseRowWithColumns(int[,] arr)
+void replaceRowWithColumns(int[,] arr)
 {
-    for (int i = 0; i < arr.GetLength(0); i++)
+    if (arr.GetLength(0) == arr.GetLength(1))
     {
-        for (int j = 0; j < arr.GetLength(1); j++)
-            if (arr.GetLength(0) == arr.GetLength(1))
+        for (int i = 0; i < arr.GetLength(0); i++)
+        {
+            for (int j = i + 1; j < arr.GetLength(1); j++)
             {
-                Console.Write(arr[j, i] + " ");
+                swap(i, j, arr);
             }
-        Console.WriteLine();
+        }
+        printArray(arr);
     }
-
+    else Console.WriteLine(" Невозможно заменить строки на столбцы (матрица не квадратная) ");
 }
-bool replase(int[,] arr)
+
+void swap(int i, int j, int[,] arr)
 {
-    for (int i = 0; i < arr.GetLength(0); i++)
-    {
-        for (int j = 0; j < arr.GetLength(1); j++)
-            if (arr.GetLength(0) == arr.GetLength(1))
-            {
-                return true;
-            }
-    }
-    return false;
+    int temp = arr[i, j];
+    arr[i, j] = arr[j, i];
+    arr[j, i] = temp;
 }
 
-int m = 4, n = 4;
+int m = 7, n = 7;
 int[,] array = new int[m, n];
 fillArray(array, 10, 99);
 printArray(array);
 Console.WriteLine();
-if (replase(array)) replaseRowWithColumns(array);
-else Console.WriteLine(" невозможно заменить строки на столбцы (матрица не квадратная) ");
+replaceRowWithColumns(array);
+
