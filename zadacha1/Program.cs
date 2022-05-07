@@ -47,4 +47,3 @@ fillArray(array, 10, 99);
 printArray(array);
 Console.WriteLine();
 replaceRowWithColumns(array);
-
